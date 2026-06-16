@@ -507,7 +507,10 @@ export const mockLearningPaths: LearningPath[] = [
     enrolledCount: 1250,
     completedCount: 890,
     icon: '/icons/web-fundamentals.svg',
-    tags: ['Beginner', 'Web', 'OWASP Top 10']
+    tags: ['Beginner', 'Web', 'OWASP Top 10'],
+    topics: ['SQL Injection', 'XSS', 'IDOR', 'LFI'],
+    points: 480,
+    completedLabs: 3
   },
   {
     id: '2',
@@ -521,21 +524,27 @@ export const mockLearningPaths: LearningPath[] = [
     enrolledCount: 680,
     completedCount: 234,
     icon: '/icons/advanced-web.svg',
-    tags: ['Advanced', 'Web', 'Exploitation']
+    tags: ['Advanced', 'Web', 'Exploitation'],
+    topics: ['CSRF', 'XXE', 'JWT', 'File Upload', 'Command Injection'],
+    points: 1290,
+    completedLabs: 2
   },
   {
     id: '3',
     slug: 'api-security',
     title: 'API Security Mastery',
     description: 'Learn to secure and attack REST APIs, GraphQL endpoints, and microservices.',
-    difficulty: Difficulty.MEDIUM,
+    difficulty: Difficulty.EASY,
     estimatedHours: 25,
     labs: ['3', '6', '10'],
     progress: 20,
     enrolledCount: 520,
     completedCount: 156,
     icon: '/icons/api-security.svg',
-    tags: ['API', 'REST', 'GraphQL']
+    tags: ['API', 'REST', 'GraphQL'],
+    topics: ['REST APIs', 'CSRF', 'Command Injection'],
+    points: 660,
+    completedLabs: 1
   },
   {
     id: '4',
@@ -549,7 +558,10 @@ export const mockLearningPaths: LearningPath[] = [
     enrolledCount: 890,
     completedCount: 445,
     icon: '/icons/osint.svg',
-    tags: ['OSINT', 'Reconnaissance', 'Intelligence']
+    tags: ['OSINT', 'Reconnaissance', 'Intelligence'],
+    topics: ['Reconnaissance', 'Google Dorking', 'WHOIS'],
+    points: 0,
+    completedLabs: 0
   },
   {
     id: '5',
@@ -563,7 +575,10 @@ export const mockLearningPaths: LearningPath[] = [
     enrolledCount: 340,
     completedCount: 89,
     icon: '/icons/system-pentest.svg',
-    tags: ['System', 'Pentesting', 'Privilege Escalation']
+    tags: ['System', 'Pentesting', 'Privilege Escalation'],
+    topics: ['Privilege Escalation', 'Buffer Overflow', 'Linux'],
+    points: 900,
+    completedLabs: 1
   }
 ];
 
@@ -690,6 +705,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '101',
       username: 'zero_cool',
+      displayName: 'Zero Cool',
       avatar: '/avatars/zero-cool.png',
       country: 'US',
       rank: 'Legendary Hacker'
@@ -697,6 +713,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 28450,
     badgesCount: 45,
     labsCompleted: 156,
+    level: 58,
+    streak: 22,
+    trend: 'stable' as const,
     change: 0
   },
   {
@@ -704,6 +723,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '102',
       username: 'acid_burn',
+      displayName: 'Acid Burn',
       avatar: '/avatars/acid-burn.png',
       country: 'UK',
       rank: 'Elite Hacker'
@@ -711,6 +731,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 26780,
     badgesCount: 42,
     labsCompleted: 148,
+    level: 55,
+    streak: 18,
+    trend: 'up' as const,
     change: 1
   },
   {
@@ -718,6 +741,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '103',
       username: 'crash_override',
+      displayName: 'Crash Override',
       avatar: '/avatars/crash-override.png',
       country: 'CA',
       rank: 'Master Exploiter'
@@ -725,6 +749,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 25120,
     badgesCount: 38,
     labsCompleted: 142,
+    level: 52,
+    streak: 9,
+    trend: 'down' as const,
     change: -1
   },
   {
@@ -732,6 +759,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '104',
       username: 'lord_nikon',
+      displayName: 'Lord Nikon',
       avatar: '/avatars/lord-nikon.png',
       country: 'DE',
       rank: 'Security Expert'
@@ -739,6 +767,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 23890,
     badgesCount: 35,
     labsCompleted: 135,
+    level: 49,
+    streak: 14,
+    trend: 'up' as const,
     change: 2
   },
   {
@@ -746,6 +777,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '105',
       username: 'cereal_killer',
+      displayName: 'Cereal Killer',
       avatar: '/avatars/cereal-killer.png',
       country: 'AU',
       rank: 'Penetration Tester'
@@ -753,6 +785,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 22340,
     badgesCount: 32,
     labsCompleted: 128,
+    level: 46,
+    streak: 5,
+    trend: 'down' as const,
     change: -2
   },
   {
@@ -760,6 +795,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '106',
       username: 'the_plague',
+      displayName: 'The Plague',
       avatar: '/avatars/the-plague.png',
       country: 'FR',
       rank: 'Security Expert'
@@ -767,6 +803,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 21560,
     badgesCount: 30,
     labsCompleted: 124,
+    level: 44,
+    streak: 11,
+    trend: 'stable' as const,
     change: 0
   },
   {
@@ -774,6 +813,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '107',
       username: 'phantom_phreak',
+      displayName: 'Phantom Phreak',
       avatar: '/avatars/phantom-phreak.png',
       country: 'JP',
       rank: 'System Administrator'
@@ -781,6 +821,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 20890,
     badgesCount: 28,
     labsCompleted: 119,
+    level: 42,
+    streak: 7,
+    trend: 'up' as const,
     change: 3
   },
   {
@@ -788,6 +831,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '108',
       username: 'razor_blade',
+      displayName: 'Razor Blade',
       avatar: '/avatars/razor-blade.png',
       country: 'BR',
       rank: 'Penetration Tester'
@@ -795,6 +839,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 19230,
     badgesCount: 26,
     labsCompleted: 112,
+    level: 39,
+    streak: 4,
+    trend: 'down' as const,
     change: -1
   },
   {
@@ -802,6 +849,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '109',
       username: 'gadget_hackwrench',
+      displayName: 'Gadget Hackwrench',
       avatar: '/avatars/gadget.png',
       country: 'IN',
       rank: 'Security Expert'
@@ -809,6 +857,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 18670,
     badgesCount: 24,
     labsCompleted: 108,
+    level: 37,
+    streak: 6,
+    trend: 'up' as const,
     change: 1
   },
   {
@@ -816,6 +867,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     user: {
       id: '110',
       username: 'tamper_proof',
+      displayName: 'Tamper Proof',
       avatar: '/avatars/tamper.png',
       country: 'MX',
       rank: 'System Administrator'
@@ -823,6 +875,9 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     points: 17450,
     badgesCount: 22,
     labsCompleted: 102,
+    level: 35,
+    streak: 3,
+    trend: 'down' as const,
     change: -2
   }
 ];
@@ -840,6 +895,7 @@ export const mockRaces: Race[] = [
     maxParticipants: 100,
     currentParticipants: 87,
     prizePool: 1000,
+    duration: 120,
     rules: [
       'No automated tools allowed',
       'First to solve each challenge gets bonus points',
@@ -873,6 +929,8 @@ export const mockRaces: Race[] = [
         avatar: '/avatars/ninja.png',
         joinTime: '2024-05-08T22:05:00Z',
         score: 250,
+        points: 250,
+        rank: 1,
         solves: ['race1-1', 'race1-2'],
         lastSolveTime: '2024-05-08T23:15:00Z'
       }
@@ -889,6 +947,7 @@ export const mockRaces: Race[] = [
     maxParticipants: 50,
     currentParticipants: 12,
     prizePool: 2000,
+    duration: 180,
     rules: [
       'Capture and hold flags',
       'Defend your own systems',
@@ -909,6 +968,7 @@ export const mockRaces: Race[] = [
     maxParticipants: 75,
     currentParticipants: 75,
     prizePool: 1500,
+    duration: 120,
     rules: [
       'Slowest solvers eliminated every 15 minutes',
       'Work fast to stay in the game',
@@ -1065,9 +1125,9 @@ export const mockActivities: Activity[] = [
       name: 'SQL Injection Fundamentals'
     },
     data: {
-      points: 100,
-      time: '45 minutes',
-      difficulty: 'Easy'
+      labId: '1',
+      target: { name: 'SQL Injection Fundamentals' },
+      points: 100
     },
     timestamp: '2024-05-08T14:30:00Z'
   },
@@ -1085,8 +1145,8 @@ export const mockActivities: Activity[] = [
       name: 'Injection Master'
     },
     data: {
-      rarity: 'Epic',
-      category: 'Skill'
+      target: { name: 'Injection Master' },
+      rarity: 'Epic'
     },
     timestamp: '2024-05-08T13:15:00Z'
   },
@@ -1132,8 +1192,8 @@ export const mockActivities: Activity[] = [
       name: 'Midnight CTF Sprint'
     },
     data: {
-      prizePool: 1000,
-      participants: 87
+      target: { name: 'Midnight CTF Sprint' },
+      prizePool: 1000
     },
     timestamp: '2024-05-08T22:05:00Z'
   }

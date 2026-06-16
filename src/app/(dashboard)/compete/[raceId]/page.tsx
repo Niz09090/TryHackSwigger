@@ -31,12 +31,27 @@ export default function RaceDetailPage() {
   const params = useParams();
   const router = useRouter();
   const raceId = params.raceId as string;
-  
+
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [currentChallenge, setCurrentChallenge] = useState(0);
+
   const race = mockRaces.find(r => r.id === raceId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!race || race.status !== 'active') return;
+    const endTime = new Date(race.endTime).getTime();
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const remaining = Math.max(0, endTime - now);
+      setTimeRemaining(remaining);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [race]);
 
   if (!race) {
     return (
@@ -54,22 +69,6 @@ export default function RaceDetailPage() {
       </div>
     );
   }
-
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
-  const [currentChallenge, setCurrentChallenge] = useState(0);
-
-  useEffect(() => {
-    if (race.status === 'active') {
-      const endTime = new Date(race.endTime).getTime();
-      const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const remaining = Math.max(0, endTime - now);
-        setTimeRemaining(remaining);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [race]);
 
   const formatTime = (ms: number) => {
     const hours = Math.floor(ms / (1000 * 60 * 60));
