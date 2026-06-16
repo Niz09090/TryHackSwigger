@@ -33,13 +33,13 @@ export default function LearningPathDetailPage({ params }: { params: { slug: str
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'EASY':
+      case 'Easy':
         return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'MEDIUM':
+      case 'Medium':
         return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      case 'HARD':
+      case 'Hard':
         return 'bg-red-500/20 text-red-400 border-red-500/30';
-      case 'INSANE':
+      case 'Insane':
         return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
       default:
         return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
@@ -159,7 +159,7 @@ export default function LearningPathDetailPage({ params }: { params: { slug: str
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <span className="text-gray-500 text-sm">Lab {index + 1}</span>
-                        <Badge className={`${getDifficultyColor(lab?.difficulty || 'EASY')} border text-xs`}>
+                        <Badge className={`${getDifficultyColor(lab?.difficulty || 'Easy')} border text-xs`}>
                           {lab?.difficulty}
                         </Badge>
                       </div>

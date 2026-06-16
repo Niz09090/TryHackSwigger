@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Docker from 'dockerode';
+import os from 'os';
 
-const docker = new Docker({ socketPath: '/var/run/docker.sock' });
+const docker = new Docker(
+  os.platform() === 'win32'
+    ? { socketPath: '//./pipe/docker_engine' }
+    : { socketPath: '/var/run/docker.sock' }
+);
 
 export async function POST(request: NextRequest) {
   try {

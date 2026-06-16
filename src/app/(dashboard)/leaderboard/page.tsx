@@ -261,7 +261,7 @@ export default function LeaderboardPage() {
                           </div>
                           <div>
                             <div className="font-medium text-white">
-                              {entry.user.displayName}
+                              {entry.user.displayName || entry.user.username}
                             </div>
                             <div className="text-sm text-gray-400">
                               @{entry.user.username}
@@ -380,7 +380,7 @@ export default function LeaderboardPage() {
                       <Badge className={`${getRankBadgeColor(index + 1)} border text-xs`}>
                         #{index + 1}
                       </Badge>
-                      <span className="text-white text-sm">{entry.user.displayName}</span>
+                      <span className="text-white text-sm">{entry.user.displayName || entry.user.username}</span>
                     </div>
                     <div className="text-right">
                       <div className="text-neon-green font-bold">{entry.labsCompleted}</div>
@@ -407,7 +407,7 @@ export default function LeaderboardPage() {
                   <div key={entry.user.id} className="flex items-center justify-between p-3 bg-deep-black rounded-lg">
                     <div className="flex items-center space-x-2">
                       <TrendingUp className="h-4 w-4 text-green-400" />
-                      <span className="text-white text-sm">{entry.user.displayName}</span>
+                      <span className="text-white text-sm">{entry.user.displayName || entry.user.username}</span>
                     </div>
                     <div className="text-right">
                       <div className="text-neon-cyan font-bold">+{Math.floor(entry.points * 0.1)}</div>

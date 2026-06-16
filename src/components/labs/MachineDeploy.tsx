@@ -202,10 +202,9 @@ export default function MachineDeploy({ labId, dockerImage, ports, terminalEnabl
   };
 
   const openTerminal = () => {
-    if (!containerInfo?.terminalPort || !labId) return;
+    if (!labId) return;
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    // Always use proxy for terminal access
-    window.open(`${baseUrl}/api/lab-proxy/${labId}/`, '_blank');
+    window.open(`${baseUrl}/api/lab-proxy/${labId}/terminal/`, '_blank');
   };
 
   const openLabUrl = () => {

@@ -37,23 +37,6 @@ export default function LabDetailPage() {
   
   const lab = mockLabs.find(lab => lab.slug === slug);
 
-  if (!lab) {
-    return (
-      <div className="min-h-screen bg-deep-black flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Lab Not Found</h1>
-          <p className="text-gray-300 mb-8">The lab you're looking for doesn't exist.</p>
-          <Button asChild>
-            <Link href="/labs">
-              <Terminal className="mr-2 h-4 w-4" />
-              Back to Labs
-            </Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
-  
   const [machineStatus, setMachineStatus] = useState<'stopped' | 'starting' | 'running' | 'stopping'>('stopped');
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [flag, setFlag] = useState('');
@@ -123,7 +106,7 @@ export default function LabDetailPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            labId: lab.id,
+            labId: lab?.id,
             flag: flag.trim(),
             userId: '1', // Mock user ID
           }),
