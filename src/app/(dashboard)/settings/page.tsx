@@ -122,7 +122,9 @@ export default function SettingsPage() {
         twitter,
         linkedin
       };
-      localStorage.setItem('userProfile', JSON.stringify(profileData));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
+      }
       
       // Show success toast
       setShowSuccessToast(true);
