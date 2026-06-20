@@ -36,23 +36,6 @@ export default function LabDetailPage() {
   const slug = params.slug as string;
   
   const lab = mockLabs.find(lab => lab.slug === slug);
-
-  if (!lab) {
-    return (
-      <div className="min-h-screen bg-deep-black flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Lab Not Found</h1>
-          <p className="text-gray-300 mb-8">The lab you're looking for doesn't exist.</p>
-          <Button asChild>
-            <Link href="/labs">
-              <Terminal className="mr-2 h-4 w-4" />
-              Back to Labs
-            </Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
   
   const [machineStatus, setMachineStatus] = useState<'stopped' | 'starting' | 'running' | 'stopping'>('stopped');
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
@@ -84,112 +67,6 @@ export default function LabDetailPage() {
       if (interval) clearInterval(interval);
     };
   }, [machineStatus, timeRemaining]);
-
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    
-    if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-    return `${minutes}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const startMachine = () => {
-    setMachineStatus('starting');
-    setTimeout(() => {
-      setMachineStatus('running');
-      setTimeRemaining(1800); // 30 minutes
-    }, 3000);
-  };
-
-  const stopMachine = () => {
-    setMachineStatus('stopping');
-    setTimeout(() => {
-      setMachineStatus('stopped');
-      setTimeRemaining(null);
-    }, 2000);
-  };
-
-  const submitFlag = async () => {
-    if (flag.trim() && !isSolved) {
-      setSubmissionStatus('loading');
-      
-      try {
-        const response = await fetch('/api/labs/flag', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            labId: lab.id,
-            flag: flag.trim(),
-            userId: '1', // Mock user ID
-          }),
-        });
-
-        const data = await response.json();
-
-        if (data.correct) {
-          setSubmissionStatus('correct');
-          setSubmissionMessage(data.message);
-          setPoints(prev => prev + data.points);
-          setIsSolved(true);
-          setFlag('');
-          
-          // Confetti effect could be added here
-          setTimeout(() => {
-            setSubmissionStatus('idle');
-          }, 5000);
-        } else {
-          setSubmissionStatus('incorrect');
-          setSubmissionMessage(data.message);
-          setTimeout(() => {
-            setSubmissionStatus('idle');
-          }, 3000);
-        }
-      } catch (error) {
-        console.error('Flag submission error:', error);
-        setSubmissionStatus('incorrect');
-        setSubmissionMessage('Error submitting flag. Please try again.');
-        setTimeout(() => {
-          setSubmissionStatus('idle');
-        }, 3000);
-      }
-    }
-  };
-
-  const unlockHints = () => {
-    if (points >= 50) {
-      setPoints(prev => prev - 50);
-      setHintsUnlocked(true);
-      setShowHints(true);
-    }
-  };
-
-  const unlockSolution = () => {
-    if (points >= 150) {
-      setPoints(prev => prev - 150);
-      setSolutionUnlocked(true);
-      setShowSolution(true);
-    }
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Easy':
-        return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'Medium':
-        return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      case 'Hard':
-        return 'bg-red-500/20 text-red-400 border-red-500/30';
-      case 'Insane':
-        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
-      default:
-        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
-    }
-  };
 
   if (!lab) {
     return (

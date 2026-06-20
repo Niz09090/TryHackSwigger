@@ -36,23 +36,7 @@ export default function BlueLabDetailPage() {
   
   const lab = mockBlueLabs.find(lab => lab.slug === slug);
 
-  if (!lab) {
-    return (
-      <div className="min-h-screen bg-deep-black text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Lab Not Found</h1>
-          <p className="text-gray-300 mb-8">The lab you're looking for doesn't exist.</p>
-          <Button asChild>
-            <Link href="/blue-team">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Blue Team
-            </Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
+  // ALL hooks here - before any conditional returns
   const [machineStatus, setMachineStatus] = useState<'stopped' | 'starting' | 'running' | 'stopping'>('stopped');
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [flag, setFlag] = useState('');
@@ -95,6 +79,45 @@ export default function BlueLabDetailPage() {
     }
     return `${minutes}:${secs.toString().padStart(2, '0')}`;
   };
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Easy':
+        return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
+      case 'Medium':
+        return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+      case 'Hard':
+        return 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30';
+      case 'Insane':
+        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+      default:
+        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+    }
+  };
+
+  const getLabTypeColor = (type: LabType) => {
+    return type === LabType.GUIDED 
+      ? 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+      : 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+  };
+
+  // NOW the conditional return
+  if (!lab) {
+    return (
+      <div className="min-h-screen bg-deep-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-white mb-4">Lab Not Found</h1>
+          <p className="text-gray-300 mb-8">The lab you are looking for doesn't exist.</p>
+          <Button asChild>
+            <Link href="/blue-team">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Blue Team
+            </Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const startMachine = () => {
     if (!lab.dockerImage) return;
@@ -162,27 +185,6 @@ export default function BlueLabDetailPage() {
       setSolutionUnlocked(true);
       setShowSolution(true);
     }
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Easy':
-        return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
-      case 'Medium':
-        return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-      case 'Hard':
-        return 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30';
-      case 'Insane':
-        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
-      default:
-        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
-    }
-  };
-
-  const getLabTypeColor = (type: LabType) => {
-    return type === LabType.GUIDED 
-      ? 'bg-blue-500/20 text-blue-400 border-blue-500/30'
-      : 'bg-purple-500/20 text-purple-400 border-purple-500/30';
   };
 
   const hintCost = Math.floor(lab.points * 0.1);

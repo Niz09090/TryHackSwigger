@@ -36,23 +36,6 @@ export default function LabDetailPage() {
   const slug = params.slug as string;
   
   const lab = mockLabs.find(lab => lab.slug === slug);
-
-  if (!lab) {
-    return (
-      <div className="min-h-screen bg-deep-black flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Lab Not Found</h1>
-          <p className="text-gray-300 mb-8">The lab you're looking for doesn't exist.</p>
-          <Button asChild>
-            <Link href="/labs">
-              <Terminal className="mr-2 h-4 w-4" />
-              Back to Labs
-            </Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
   
   const [machineStatus, setMachineStatus] = useState<'stopped' | 'starting' | 'running' | 'stopping'>('stopped');
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
@@ -112,6 +95,54 @@ export default function LabDetailPage() {
     }, 2000);
   };
 
+  const unlockHints = () => {
+    if (points >= 50) {
+      setPoints(prev => prev - 50);
+      setHintsUnlocked(true);
+      setShowHints(true);
+    }
+  };
+
+  const unlockSolution = () => {
+    if (points >= 150) {
+      setPoints(prev => prev - 150);
+      setSolutionUnlocked(true);
+      setShowSolution(true);
+    }
+  };
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Easy':
+        return 'bg-green-500/20 text-green-400 border-green-500/30';
+      case 'Medium':
+        return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
+      case 'Hard':
+        return 'bg-red-500/20 text-red-400 border-red-500/30';
+      case 'Insane':
+        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+      default:
+        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+    }
+  };
+
+  // ONLY ONE guard after hooks
+  if (!lab) {
+    return (
+      <div className="min-h-screen bg-deep-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">Lab Not Found</h1>
+          <p className="text-gray-400 mb-8">The lab you're looking for doesn't exist.</p>
+          <Button variant="neon" asChild>
+            <Link href="/labs">
+              Back to Labs
+            </Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   const submitFlag = async () => {
     if (flag.trim() && !isSolved) {
       setSubmissionStatus('loading');
@@ -159,53 +190,6 @@ export default function LabDetailPage() {
       }
     }
   };
-
-  const unlockHints = () => {
-    if (points >= 50) {
-      setPoints(prev => prev - 50);
-      setHintsUnlocked(true);
-      setShowHints(true);
-    }
-  };
-
-  const unlockSolution = () => {
-    if (points >= 150) {
-      setPoints(prev => prev - 150);
-      setSolutionUnlocked(true);
-      setShowSolution(true);
-    }
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Easy':
-        return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'Medium':
-        return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      case 'Hard':
-        return 'bg-red-500/20 text-red-400 border-red-500/30';
-      case 'Insane':
-        return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
-      default:
-        return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
-    }
-  };
-
-  if (!lab) {
-    return (
-      <div className="min-h-screen bg-deep-black text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Lab Not Found</h1>
-          <p className="text-gray-400 mb-8">The lab you're looking for doesn't exist.</p>
-          <Button variant="neon" asChild>
-            <Link href="/labs">
-              Back to Labs
-            </Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-deep-black text-white">
