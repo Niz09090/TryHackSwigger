@@ -1,5 +1,6 @@
 import Docker from 'dockerode';
 import path from 'path';
+import { isDemoBrokenLab, demoFailureDelayMs } from './demoMode';
 
 const docker = new Docker(
   process.platform === 'win32'
@@ -142,6 +143,11 @@ export async function ensureLabNetwork(): Promise<void> {
 
 // Deploy a new container for a lab
 export async function deployContainer(config: ContainerConfig): Promise<ContainerInfo> {
+  if (isDemoBrokenLab(config.labId)) {
+    await new Promise(resolve => setTimeout(resolve, demoFailureDelayMs()));
+    throw new Error('Failed to deploy container');
+  }
+
   try {
     console.log('Deploying container for lab:', config.labId);
     await ensureLabNetwork();
