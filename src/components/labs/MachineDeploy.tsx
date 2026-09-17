@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, X, RefreshCw, Terminal, Clock, Server, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { isDemoBrokenLab } from '@/lib/demoMode';
 
 interface MachineDeployProps {
   labId: string;
@@ -118,7 +119,9 @@ export default function MachineDeploy({ labId, dockerImage, ports, terminalEnabl
       const status: ContainerStatus = await statusResponse.json();
       setContainerStatus(status);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to deploy container');
+      if (!isDemoBrokenLab(labId)) {
+        setError(err instanceof Error ? err.message : 'Failed to deploy container');
+      }
     } finally {
       setIsLoading(false);
     }
